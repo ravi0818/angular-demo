@@ -1,0 +1,12 @@
+<div class="todo">
+  <input
+    type="checkbox"
+    [checked]="todo().done"
+    (change)="toggleTodo(todo())"
+  />
+  <div>
+    <p [ngClass]="{ 'todo-done': todo().done }">
+      {{ todo().title }} | <span>{{ todo().description }}</span>
+    </p>
+  </div>
+</div>

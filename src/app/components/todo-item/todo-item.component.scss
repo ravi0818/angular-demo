@@ -1,0 +1,11 @@
+.todo {
+  display: flex;
+}
+
+p > span {
+  color: gray;
+}
+
+.todo-done {
+  text-decoration: line-through;
+}
