@@ -1,0 +1,28 @@
+.container {
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 40vw;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  margin: 10px auto;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  width: 60px;
+  height: 60px;
+  margin: 5px;
+  font-size: 20px;
+}

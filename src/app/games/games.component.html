@@ -1,0 +1,31 @@
+<div class="container">
+  <mat-card class="card">
+    <h3>Tic Tac Toe</h3>
+    @if (winner) {
+    <h4>Winner: {{ winner }}</h4>
+    } @else {
+    <h4>Current Player: {{ currentPlayer }}</h4>
+    }
+    <div class="board">
+      @for (row of board; track $index; let rowIndex = $index) {
+      <div class="row">
+        @for (cell of row; track $index; let colIndex = $index) {
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="cell || winner"
+          (click)="makeMove(rowIndex, colIndex)"
+        >
+          {{ cell }}
+        </button>
+        }
+      </div>
+      }
+    </div>
+    <div class="row">
+      <button mat-raised-button color="accent" (click)="resetGame()">
+        Reset
+      </button>
+    </div>
+  </mat-card>
+</div>
