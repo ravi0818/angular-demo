@@ -16,7 +16,7 @@ import { ProductsService } from '../../services/products.service';
 export class HeaderComponent {
   private routerSubscription!: Subscription;
   productsService = inject(ProductsService);
-  isHomePage = signal(false);
+  showCartIcon = signal(false);
   cartItems = this.productsService.cart();
 
   constructor(private router: Router) {}
@@ -24,11 +24,10 @@ export class HeaderComponent {
   ngOnInit(): void {
     this.routerSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        console.log('Current Route:', this.router.url);
-        if (this.router.url === '/') {
-          this.isHomePage.set(true);
+        if (this.router.url === '/' || this.router.url === '/cart') {
+          this.showCartIcon.set(true);
         } else {
-          this.isHomePage.set(false);
+          this.showCartIcon.set(false);
         }
       }
     });

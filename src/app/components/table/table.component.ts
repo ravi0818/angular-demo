@@ -12,6 +12,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { IProduct } from '../../interface';
 
 @Component({
   selector: 'app-table',
@@ -27,7 +28,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent {
-  tableData = input.required<any>();
+  tableData = input.required<IProduct[]>();
   columns = input.required<string[]>();
   isLoading = input.required<boolean>();
   customCellTemplates = input.required<Record<string, TemplateRef<any>>>();

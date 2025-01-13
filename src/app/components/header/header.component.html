@@ -6,8 +6,8 @@
     <button mat-button routerLink="/">Home</button>
     <button mat-button routerLink="/todos">Todos</button>
     <button mat-button routerLink="/games">Games</button>
-    @if(isHomePage()){
-    <button mat-button routerLink="/games">
+    @if(showCartIcon()){
+    <button mat-button routerLink="/cart">
       <mat-icon [matBadge]="cartItems.length" matBadgeOverlap="false"
         >shopping_cart</mat-icon
       >

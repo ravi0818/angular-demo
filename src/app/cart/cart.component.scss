@@ -1,0 +1,22 @@
+mat-card {
+  margin-bottom: 8px;
+}
+
+mat-card-content {
+  display: flex;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  padding-inline: 16px;
+  span {
+    padding-block: 4px;
+  }
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

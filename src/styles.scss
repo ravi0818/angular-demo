@@ -9,5 +9,7 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 .container {
-  padding-inline: 1rem;
+  height: calc(100vh - 95px);
+  padding: 1rem;
+  overflow: auto;
 }
