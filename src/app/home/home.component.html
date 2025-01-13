@@ -1,10 +1,20 @@
-<div>
-  <p>home works!</p>
+<div class="container">
+  <!-- <p>home works!</p>
   <p>This is Normal value {{ counter() }}</p>
   <p>This is Signal value {{ value }}</p>
   <app-counter></app-counter>
 
   <p></p>
   <input placeholder="Type something..." type="text" [(ngModel)]="inputValue" />
-  <p>{{ inputValue }}</p>
+  <p>{{ inputValue }}</p> -->
+  <app-table
+    [columns]="columns"
+    [tableData]="products"
+    [isLoading]="isLoading()"
+    [customCellTemplates]="customTemplates"
+  ></app-table>
+
+  <ng-template #actionTemplate let-row>
+    <button mat-button (click)="handleBuy(row)">+Cart</button>
+  </ng-template>
 </div>
