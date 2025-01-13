@@ -4,6 +4,7 @@ import {
   ViewChild,
   input,
   TemplateRef,
+  signal,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -31,6 +32,7 @@ export class TableComponent {
   isLoading = input.required<boolean>();
   customCellTemplates = input.required<Record<string, TemplateRef<any>>>();
   customCellRenderer!: Record<string, TemplateRef<any>>;
+  customCellColumns = signal<string[]>([]);
 
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<unknown>([]);
@@ -45,6 +47,7 @@ export class TableComponent {
     });
     effect(() => {
       this.customCellRenderer = this.customCellTemplates();
+      this.customCellColumns.set(Object.keys(this.customCellRenderer));
     });
   }
 
