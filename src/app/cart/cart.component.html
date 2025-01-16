@@ -1,6 +1,9 @@
 <div class="container">
-  @for (item of cartItems; track $index) {
+  @for (item of cartItems(); track $index) {
   <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-icon color="red" (click)="openDialog(item)">delete</mat-icon>
+    </mat-card-header>
     <mat-card-content>
       <img [src]="item.image" height="100" width="100" />
       <div class="card-content">
@@ -9,10 +12,10 @@
       </div>
     </mat-card-content>
   </mat-card>
-  } @if(cartItems.length){
+  } @if(cartItems().length){
   <mat-card appearance="outlined">
     <mat-card-actions>
-      <span><strong>Total amount: </strong> ₹{{ totalAmount }}</span>
+      <span><strong>Total amount: </strong> ₹{{ totalAmount() }}</span>
       <button mat-flat-button>Proceed to checkout</button>
     </mat-card-actions>
   </mat-card>

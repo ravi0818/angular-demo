@@ -23,4 +23,10 @@ export class ProductsService {
       return cart;
     });
   }
+
+  removeFromCart(product: IProduct) {
+    this.cart.update((cart: IProduct[]) => {
+      return cart.filter((item: IProduct) => item.id !== product.id);
+    });
+  }
 }
