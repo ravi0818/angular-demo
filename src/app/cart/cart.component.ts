@@ -7,6 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { ConfirmDialogComponent } from '../components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { title } from 'process';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
@@ -14,7 +18,10 @@ import { title } from 'process';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    ConfirmDialogComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    CommonModule,
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
@@ -24,10 +31,13 @@ export class CartComponent {
   cartItems = computed(() => this.productsService.cart());
   totalAmount = computed(() =>
     this.cartItems().reduce(
-      (total: number, item: IProduct) => total + item?.price,
+      (total: number, item: IProduct) =>
+        total + item?.price * (item?.quantity ?? 1),
       0
     )
   );
+
+  readonly QUANTITY = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   dialog = inject(MatDialog);
 
@@ -44,5 +54,11 @@ export class CartComponent {
     });
   }
 
-  removeFromCart(item: IProduct) {}
+  onQuantityChange(event: Event, product: IProduct) {
+    const target = event.target as HTMLSelectElement;
+    const quantity = parseInt(target.value);
+    if (!isNaN(quantity)) {
+      this.productsService.updateQuantity(product, quantity);
+    }
+  }
 }

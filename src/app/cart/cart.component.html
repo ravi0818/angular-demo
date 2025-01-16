@@ -7,15 +7,30 @@
     <mat-card-content>
       <img [src]="item.image" height="100" width="100" />
       <div class="card-content">
-        <span>{{ item.title }}</span>
-        <span>{{ item.price }}</span>
+        <span class="title">{{ item.title }}</span>
+        <span>₹{{ item.price }}</span>
+        <div>
+          <label>Qty. </label>
+          <select
+            [value]="item.quantity"
+            (change)="onQuantityChange($event, item)"
+          >
+            @for (qty of QUANTITY; track $index) {
+            <option [value]="qty">{{ qty }}</option>
+            }
+          </select>
+        </div>
       </div>
     </mat-card-content>
   </mat-card>
   } @if(cartItems().length){
   <mat-card appearance="outlined">
     <mat-card-actions>
-      <span><strong>Total amount: </strong> ₹{{ totalAmount() }}</span>
+      <span
+        ><strong>Total amount: </strong> ₹{{
+          totalAmount() | number : "1.0-2"
+        }}</span
+      >
       <button mat-flat-button>Proceed to checkout</button>
     </mat-card-actions>
   </mat-card>

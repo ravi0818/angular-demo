@@ -16,7 +16,11 @@ mat-card-content {
   flex-direction: column;
   padding-inline: 16px;
   span {
-    padding-block: 4px;
+    padding-bottom: 12px;
+  }
+  .title {
+    font-size: large;
+    font-weight: 600;
   }
 }
 
@@ -24,4 +28,9 @@ mat-card-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+mat-form-field {
+  width: 80px;
+  height: 80px;
 }

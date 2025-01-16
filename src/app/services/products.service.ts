@@ -19,7 +19,7 @@ export class ProductsService {
     );
     if (isDuplicate) return;
     this.cart.update((cart: IProduct[]) => {
-      cart.push(product);
+      cart.push({ ...product, quantity: 1 });
       return cart;
     });
   }
@@ -27,6 +27,17 @@ export class ProductsService {
   removeFromCart(product: IProduct) {
     this.cart.update((cart: IProduct[]) => {
       return cart.filter((item: IProduct) => item.id !== product.id);
+    });
+  }
+
+  updateQuantity(product: IProduct, quantity: number) {
+    this.cart.update((cart: IProduct[]) => {
+      return cart.map((item: IProduct) => {
+        if (item.id === product.id) {
+          item.quantity = quantity;
+        }
+        return item;
+      });
     });
   }
 }
