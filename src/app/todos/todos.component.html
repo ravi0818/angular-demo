@@ -3,13 +3,60 @@
     <h3>Add Todo</h3>
     <mat-form-field>
       <mat-label>Title</mat-label>
-      <input matInput [(ngModel)]="titleValue" />
+      <input matInput [formControl]="title" maxlength="20" />
+      @if(this.title.hasError('required')){
+      <mat-error>{{ requiredError }}</mat-error>
+      }
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Textarea</mat-label>
-      <textarea matInput [(ngModel)]="descriptionValue"></textarea>
+      <mat-label>Description</mat-label>
+      <textarea matInput [formControl]="description" maxlength="100"></textarea>
+      @if(this.description.hasError('required')){
+      <mat-error>{{ requiredError }}</mat-error>
+      }
     </mat-form-field>
-    <button mat-flat-button (click)="addTodoItem()">Add</button>
+    <mat-form-field>
+      <mat-label>Due date</mat-label>
+      <input matInput [matDatepicker]="datepicker" [formControl]="dueDate" />
+      <mat-datepicker #datepicker />
+      <mat-datepicker-toggle [for]="datepicker" matSuffix />
+      @if(this.dueDate.hasError('required')){
+      <mat-error>{{ requiredError }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Due time</mat-label>
+      <input matInput [matTimepicker]="timepicker" [formControl]="dueTime" />
+      <mat-timepicker #timepicker />
+      <mat-timepicker-toggle [for]="timepicker" matSuffix />
+      @if(this.dueTime.hasError('required')){
+      <mat-error>{{ requiredError }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Enter your email</mat-label>
+      <input
+        matInput
+        placeholder="pat@example.com"
+        [formControl]="email"
+        required
+      />
+      @if (this.email.hasError('required')) {
+      <mat-error>{{ requiredError }}</mat-error>
+      }@else if(this.email.hasError('email')){
+      <mat-error>{{ emailError }}</mat-error>
+      }
+    </mat-form-field>
+
+    <button
+      mat-flat-button
+      (click)="addTodoItem()"
+      [disabled]="!validateForm()"
+    >
+      Add
+    </button>
   </div>
 
   <div class="todo-container">

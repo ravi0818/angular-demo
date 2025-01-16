@@ -6,7 +6,10 @@
   />
   <div>
     <p [ngClass]="{ 'todo-done': todo().done }">
-      {{ todo().title }} | <span>{{ todo().description }}</span>
+      {{ todo().title }} | <span>{{ todo().description }}</span> |
+      <span>{{ todo().dueDate | date : "shortDate" }}</span> |
+      <span>{{ todo().dueTime | date : "shortTime" }}</span>
+      | <span>{{ todo().email }}</span>
     </p>
   </div>
 </div>

@@ -1,6 +1,7 @@
 import { Component, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Todo, TodoService } from '../../services/todo.service';
+import { TodoService } from '../../services/todo.service';
+import { Todo } from '../../interface';
 
 @Component({
   selector: 'app-todo-item',

@@ -4,7 +4,14 @@ import { TodoItemComponent } from '../components/todo-item/todo-item.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTimepickerModule } from '@angular/material/timepicker';
 
 @Component({
   selector: 'app-todos',
@@ -14,6 +21,9 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
+    MatTimepickerModule,
+    MatDatepickerModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './todos.component.html',
   styleUrl: './todos.component.scss',
@@ -23,19 +33,44 @@ export class TodosComponent {
 
   todos = this.todoService.getTodos();
 
-  titleValue = signal('');
-  descriptionValue = signal('');
+  readonly title = new FormControl('', [Validators.required]);
+  readonly description = new FormControl('', [Validators.required]);
+  readonly dueDate = new FormControl('', [Validators.required]);
+  readonly dueTime = new FormControl('', [Validators.required]);
+  readonly email = new FormControl('', [Validators.required, Validators.email]);
+  requiredError = 'This field is required';
+  emailError = 'Please enter a valid email address';
+
+  validateForm() {
+    if (
+      this.title.invalid ||
+      this.description.invalid ||
+      this.dueDate.invalid ||
+      this.dueTime.invalid ||
+      this.email.invalid
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   addTodoItem() {
-    if (!this.titleValue() || !this.descriptionValue()) return;
+    if (!this.validateForm()) return;
     this.todoService.addTodo({
       id: this.todos.length + 1,
-      title: this.titleValue(),
-      description: this.descriptionValue(),
+      title: this.title.value ?? '',
+      description: this.description.value ?? '',
       done: false,
+      dueDate: this.dueDate.value ?? '',
+      dueTime: this.dueTime.value ?? '',
+      email: this.email.value ?? '',
     });
 
-    this.titleValue.set('');
-    this.descriptionValue.set('');
+    this.title.reset();
+    this.description.reset();
+    this.dueDate.reset();
+    this.dueTime.reset();
+    this.email.reset();
   }
 }
