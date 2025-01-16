@@ -8,7 +8,7 @@
     <button mat-button routerLink="/games">Games</button>
     @if(showCartIcon()){
     <button mat-button routerLink="/cart">
-      <mat-icon [matBadge]="cartItems.length" matBadgeOverlap="false"
+      <mat-icon [matBadge]="cartItems().length" matBadgeOverlap="false"
         >shopping_cart</mat-icon
       >
     </button>

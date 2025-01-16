@@ -1,6 +1,6 @@
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -17,7 +17,7 @@ export class HeaderComponent {
   private routerSubscription!: Subscription;
   productsService = inject(ProductsService);
   showCartIcon = signal(false);
-  cartItems = this.productsService.cart();
+  cartItems = computed(() => this.productsService.cart());
 
   constructor(private router: Router) {}
 
