@@ -13,6 +13,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { IProduct } from '../../interface';
+import { HighlightDirective } from '../../directives/highlight.directive';
 
 @Component({
   selector: 'app-table',
@@ -23,6 +24,7 @@ import { IProduct } from '../../interface';
     MatProgressSpinnerModule,
     MatButtonModule,
     CommonModule,
+    HighlightDirective,
   ],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
