@@ -16,7 +16,9 @@
             (change)="onQuantityChange($event, item)"
           >
             @for (qty of QUANTITY; track $index) {
-            <option [value]="qty">{{ qty }}</option>
+            <option [value]="qty" [selected]="qty === item.quantity">
+              {{ qty }}
+            </option>
             }
           </select>
         </div>
