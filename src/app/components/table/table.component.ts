@@ -7,7 +7,7 @@ import {
   signal,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,6 +25,7 @@ import { HighlightDirective } from '../../directives/highlight.directive';
     MatButtonModule,
     CommonModule,
     HighlightDirective,
+    MatSortModule,
   ],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
@@ -41,6 +42,7 @@ export class TableComponent {
   dataSource = new MatTableDataSource<unknown>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor() {
     effect(() => {
@@ -56,5 +58,6 @@ export class TableComponent {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 }
