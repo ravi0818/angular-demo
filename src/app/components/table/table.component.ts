@@ -12,8 +12,8 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { IProduct } from '../../interface';
-import { HighlightDirective } from '../../directives/highlight.directive';
+import { HighlightDirective } from '@directives/highlight.directive';
+import { IProduct } from '@interface/product';
 
 @Component({
   selector: 'app-table',

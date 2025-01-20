@@ -5,7 +5,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
-import { ProductsService } from '../../services/products.service';
+import { ProductsService } from '@services/products.service';
 
 @Component({
   selector: 'app-header',

@@ -6,11 +6,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableComponent } from '../components/table/table.component';
-import { ProductsService } from '../services/products.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { IProduct } from '../interface';
+import { ProductsService } from '@services/products.service';
+import { TableComponent } from '@components/table/table.component';
+import { IProduct } from '@interface/product';
 
 @Component({
   selector: 'app-home',

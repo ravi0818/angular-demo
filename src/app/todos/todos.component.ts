@@ -1,6 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
-import { TodoService } from '../services/todo.service';
-import { TodoItemComponent } from '../components/todo-item/todo-item.component';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,6 +10,8 @@ import {
 } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTimepickerModule } from '@angular/material/timepicker';
+import { TodoItemComponent } from '@components/todo-item/todo-item.component';
+import { TodoService } from '@services/todo.service';
 
 @Component({
   selector: 'app-todos',

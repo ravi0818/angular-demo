@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Todo } from '../interface';
+import { Todo } from '@interface/todo';
 
 @Injectable({
   providedIn: 'root',

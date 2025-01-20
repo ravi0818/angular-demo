@@ -1,16 +1,15 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
-import { ProductsService } from '../services/products.service';
+import { Component, computed, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { IProduct } from '../interface';
 import { MatIconModule } from '@angular/material/icon';
-import { ConfirmDialogComponent } from '../components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { title } from 'process';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
+import { ConfirmDialogComponent } from '@components/confirm-dialog/confirm-dialog.component';
+import { IProduct } from '@interface/product';
+import { ProductsService } from '@services/products.service';
 
 @Component({
   selector: 'app-cart',
