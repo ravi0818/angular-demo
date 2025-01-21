@@ -4,12 +4,18 @@
     [checked]="todo().done"
     (change)="toggleTodo(todo())"
   />
-  <div>
+  <div class="todo-item">
     <p [ngClass]="{ 'todo-done': todo().done }">
       {{ todo().title }} | <span>{{ todo().description }}</span> |
       <span>{{ todo().dueDate | date : "shortDate" }}</span> |
       <span>{{ todo().dueTime | date : "shortTime" }}</span>
       | <span>{{ todo().email }}</span>
     </p>
+    <button mat-icon-button (click)="editTodo(todo())">
+      <mat-icon fontIcon="edit"></mat-icon>
+    </button>
+    <button mat-icon-button (click)="deleteTodo(todo())">
+      <mat-icon fontIcon="delete"></mat-icon>
+    </button>
   </div>
 </div>

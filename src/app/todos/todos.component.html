@@ -61,8 +61,8 @@
 
   <div class="todo-container">
     <h3>Todos</h3>
-    @for (todo of todos; track $index) {
-    <app-todo-item [todo]="todo" />
+    @for (todo of todos(); track $index) {
+    <app-todo-item [todo]="todo" (onEditClick)="onEditClick($event)" />
     }
   </div>
 </div>

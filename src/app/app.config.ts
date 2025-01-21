@@ -9,6 +9,8 @@ import {
   withEventReplay,
 } from '@angular/platform-browser';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,5 +20,16 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideClientHydration(withEventReplay()),
     provideNativeDateAdapter(),
+    provideFirebaseApp(() =>
+      initializeApp({
+        projectId: 'angular-demo-4f7e7',
+        appId: '1:74637756033:web:510de4dcd09cfd526d6f80',
+        storageBucket: 'angular-demo-4f7e7.firebasestorage.app',
+        apiKey: 'AIzaSyAp_TfJXCMLjzKzwrcUcWt76uTpPmrUY2o',
+        authDomain: 'angular-demo-4f7e7.firebaseapp.com',
+        messagingSenderId: '74637756033',
+      })
+    ),
+    provideFirestore(() => getFirestore()),
   ],
 };

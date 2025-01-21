@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,6 +12,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTimepickerModule } from '@angular/material/timepicker';
 import { TodoItemComponent } from '@components/todo-item/todo-item.component';
 import { TodoService } from '@services/todo.service';
+import { Todo } from '@interface/todo';
 
 @Component({
   selector: 'app-todos',
@@ -30,8 +31,7 @@ import { TodoService } from '@services/todo.service';
 })
 export class TodosComponent {
   todoService = inject(TodoService);
-
-  todos = this.todoService.getTodos();
+  todos = computed(() => this.todoService.todos());
 
   readonly title = new FormControl('', [Validators.required]);
   readonly description = new FormControl('', [Validators.required]);
@@ -40,6 +40,8 @@ export class TodosComponent {
   readonly email = new FormControl('', [Validators.required, Validators.email]);
   requiredError = 'This field is required';
   emailError = 'Please enter a valid email address';
+
+  isEditing = signal(false);
 
   validateForm() {
     if (
@@ -58,12 +60,11 @@ export class TodosComponent {
   addTodoItem() {
     if (!this.validateForm()) return;
     this.todoService.addTodo({
-      id: this.todos.length + 1,
       title: this.title.value ?? '',
       description: this.description.value ?? '',
       done: false,
-      dueDate: this.dueDate.value ?? '',
-      dueTime: this.dueTime.value ?? '',
+      dueDate: new Date(this.dueDate.value ?? ''),
+      dueTime: new Date(this.dueTime.value ?? ''),
       email: this.email.value ?? '',
     });
 
@@ -72,5 +73,14 @@ export class TodosComponent {
     this.dueDate.reset();
     this.dueTime.reset();
     this.email.reset();
+  }
+
+  onEditClick(todo: any) {
+    // this.isEditing.set(true);
+    // this.title.setValue(todo.title);
+    // this.description.setValue(todo.description);
+    // this.dueDate.setValue(todo.dueDate.toISOString());
+    // this.dueTime.setValue(todo.dueTime.toISOString());
+    // this.email.setValue(todo.email);
   }
 }

@@ -46,7 +46,7 @@ export class HomeComponent {
       next: (data: any) => {
         this.products = data;
       },
-      error: (e) => console.log(e),
+      error: (e) => console.error(e),
       complete: () => {
         this.isLoading.set(false);
       },

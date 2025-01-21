@@ -1,9 +1,9 @@
 export interface Todo {
-  id: number;
+  id?: number;
   title: string;
   description: string;
   done: boolean;
-  dueDate: string;
-  dueTime: string;
+  dueDate: Date;
+  dueTime: Date;
   email: string;
 }

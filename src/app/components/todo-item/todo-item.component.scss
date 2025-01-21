@@ -9,3 +9,11 @@ p > span {
 .todo-done {
   text-decoration: line-through;
 }
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  p {
+    font-size: large;
+  }
+}
