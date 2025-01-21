@@ -11,6 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { ProductsService } from '@services/products.service';
 import { TableComponent } from '@components/table/table.component';
 import { IProduct } from '@interface/product';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertDialogComponent } from '@components/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -58,7 +60,24 @@ export class HomeComponent {
     };
   }
 
+  dialog = inject(MatDialog);
+
+  openDialog() {
+    this.dialog.open(AlertDialogComponent, {
+      data: {
+        title: 'Alert',
+        message: 'This item is already in the cart!',
+      },
+    });
+  }
+
   handleBuy(row: IProduct) {
+    const isDuplicate = this.productsService
+      .cart()
+      .find((item: IProduct) => item.id === row.id);
+    if (isDuplicate) {
+      this.openDialog();
+    }
     this.productsService.addToCart(row);
   }
 }

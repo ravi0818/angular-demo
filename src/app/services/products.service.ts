@@ -14,10 +14,6 @@ export class ProductsService {
   }
 
   addToCart(product: IProduct) {
-    const isDuplicate = this.cart().find(
-      (item: IProduct) => item.id === product.id
-    );
-    if (isDuplicate) return;
     this.cart.update((cart: IProduct[]) => {
       cart.push({ ...product, quantity: 1 });
       return cart;
