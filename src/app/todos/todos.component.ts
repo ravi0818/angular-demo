@@ -1,4 +1,12 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  signal,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,7 +20,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTimepickerModule } from '@angular/material/timepicker';
 import { TodoItemComponent } from '@components/todo-item/todo-item.component';
 import { TodoService } from '@services/todo.service';
-import { Todo } from '@interface/todo';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { CustomDialogComponent } from '@components/custom-dialog/custom-dialog.component';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-todos',
@@ -25,6 +36,8 @@ import { Todo } from '@interface/todo';
     MatTimepickerModule,
     MatDatepickerModule,
     ReactiveFormsModule,
+    CommonModule,
+    MatCardModule,
   ],
   templateUrl: './todos.component.html',
   styleUrl: './todos.component.scss',
@@ -41,7 +54,20 @@ export class TodosComponent {
   requiredError = 'This field is required';
   emailError = 'Please enter a valid email address';
 
-  isEditing = signal(false);
+  @ViewChild('todoFormTemplate')
+  todoFormTemplate!: TemplateRef<any>;
+
+  dialogRef!: MatDialogRef<CustomDialogComponent, any>;
+
+  dialog = inject(MatDialog);
+
+  isEditingMode = signal(false);
+
+  constructor() {
+    effect(() => {
+      console.log(this.todos());
+    });
+  }
 
   validateForm() {
     if (
@@ -57,6 +83,14 @@ export class TodosComponent {
     }
   }
 
+  resetFormFields() {
+    this.title.reset();
+    this.description.reset();
+    this.dueDate.reset();
+    this.dueTime.reset();
+    this.email.reset();
+  }
+
   addTodoItem() {
     if (!this.validateForm()) return;
     this.todoService.addTodo({
@@ -68,19 +102,61 @@ export class TodosComponent {
       email: this.email.value ?? '',
     });
 
-    this.title.reset();
-    this.description.reset();
-    this.dueDate.reset();
-    this.dueTime.reset();
-    this.email.reset();
+    this.dialogRef.close();
   }
 
-  onEditClick(todo: any) {
-    // this.isEditing.set(true);
-    // this.title.setValue(todo.title);
-    // this.description.setValue(todo.description);
-    // this.dueDate.setValue(todo.dueDate.toISOString());
-    // this.dueTime.setValue(todo.dueTime.toISOString());
-    // this.email.setValue(todo.email);
+  updateTodoItem(todoId: string) {
+    if (!this.validateForm()) return;
+    this.todoService.updateTodo({
+      id: todoId,
+      title: this.title.value ?? '',
+      description: this.description.value ?? '',
+      done: false,
+      dueDate: new Date(this.dueDate.value ?? ''),
+      dueTime: new Date(this.dueTime.value ?? ''),
+      email: this.email.value ?? '',
+    });
+
+    this.dialogRef.close();
+  }
+
+  openAddDialog() {
+    this.dialogRef = this.dialog.open(CustomDialogComponent, {
+      data: {
+        title: 'Add Todo',
+        body: this.todoFormTemplate,
+      },
+      height: '80%',
+      width: '40%',
+    });
+
+    this.dialogRef.afterClosed().subscribe(() => {
+      this.resetFormFields();
+      this.isEditingMode.set(false);
+    });
+  }
+
+  openEditDialog(todo: any) {
+    this.isEditingMode.set(true);
+    this.title.setValue(todo.title);
+    this.description.setValue(todo.description);
+    this.dueDate.setValue(todo.dueDate.toISOString());
+    this.dueTime.setValue(todo.dueTime.toISOString());
+    this.email.setValue(todo.email);
+
+    this.dialogRef = this.dialog.open(CustomDialogComponent, {
+      data: {
+        title: 'Edit Todo',
+        body: this.todoFormTemplate,
+        data: todo,
+      },
+      height: '80%',
+      width: '40%',
+    });
+
+    this.dialogRef.afterClosed().subscribe(() => {
+      this.resetFormFields();
+      this.isEditingMode.set(false);
+    });
   }
 }

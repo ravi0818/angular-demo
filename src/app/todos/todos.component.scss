@@ -1,9 +1,5 @@
-.container {
-  display: flex;
-}
-
 .todo-container {
-  height: 80vh;
+  height: 75vh;
   width: 100%;
   overflow-y: scroll;
 }
@@ -11,6 +7,9 @@
 .form {
   display: flex;
   flex-direction: column;
-  width: 30vw;
   padding-inline: 48px;
+}
+
+.mat-mdc-dialog-content {
+  max-height: 100vh !important;
 }
