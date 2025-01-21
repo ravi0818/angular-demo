@@ -5,6 +5,7 @@ import {
   input,
   TemplateRef,
   signal,
+  SimpleChanges,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -59,5 +60,23 @@ export class TableComponent {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  //Lifecycle hooks
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('ngOnChanges', changes);
+  }
+
+  ngDoCheck() {
+    console.log('ngDoCheck');
+  }
+
+  ngAfterContentInit() {
+    console.log('ngAfterContentInit');
+  }
+
+  ngOnDestroy() {
+    console.log('ngOnDestroy');
   }
 }
