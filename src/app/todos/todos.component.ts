@@ -63,12 +63,6 @@ export class TodosComponent {
 
   isEditingMode = signal(false);
 
-  constructor() {
-    effect(() => {
-      console.log(this.todos());
-    });
-  }
-
   validateForm() {
     if (
       this.title.invalid ||
