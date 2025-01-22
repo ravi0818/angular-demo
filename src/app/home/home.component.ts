@@ -77,6 +77,7 @@ export class HomeComponent {
       .find((item: IProduct) => item.id === row.id);
     if (isDuplicate) {
       this.openDialog();
+      return;
     }
     this.productsService.addToCart(row);
   }
