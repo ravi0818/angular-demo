@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+@use "tailwindcss";
 
 html,
 body {
@@ -7,9 +7,4 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-.container {
-  height: calc(100vh - 95px);
-  padding: 1rem;
-  overflow: auto;
 }

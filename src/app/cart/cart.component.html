@@ -1,4 +1,4 @@
-<div class="container">
+<div>
   @for (item of cartItems(); track $index) {
   <mat-card appearance="outlined">
     <mat-card-header>
@@ -14,6 +14,7 @@
           <select
             [value]="item.quantity"
             (change)="onQuantityChange($event, item)"
+            class="border border-1 rounded-md"
           >
             @for (qty of QUANTITY; track $index) {
             <option [value]="qty" [selected]="qty === item.quantity">

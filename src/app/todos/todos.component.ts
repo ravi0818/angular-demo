@@ -120,8 +120,8 @@ export class TodosComponent {
         title: 'Add Todo',
         body: this.todoFormTemplate,
       },
-      height: '80%',
-      width: '40%',
+      height: '70%',
+      width: '30%',
     });
 
     this.dialogRef.afterClosed().subscribe(() => {
@@ -144,8 +144,8 @@ export class TodosComponent {
         body: this.todoFormTemplate,
         data: todo,
       },
-      height: '80%',
-      width: '40%',
+      height: '70%',
+      width: '30%',
     });
 
     this.dialogRef.afterClosed().subscribe(() => {

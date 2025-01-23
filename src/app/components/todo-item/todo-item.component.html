@@ -1,11 +1,11 @@
-<div class="todo">
+<div class="flex items-center gap-3 text-lg">
   <input
     type="checkbox"
     [checked]="todo().done"
     (change)="toggleTodo(todo())"
   />
-  <div class="todo-item">
-    <p [ngClass]="{ 'todo-done': todo().done }">
+  <div class="flex items-center">
+    <p [class]="{ 'line-through': todo().done }">
       {{ todo().title }} | <span>{{ todo().description }}</span> |
       <span>{{ todo().dueDate | date : "shortDate" }}</span> |
       <span>{{ todo().dueTime | date : "shortTime" }}</span>
