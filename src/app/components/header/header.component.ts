@@ -1,6 +1,6 @@
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -16,19 +16,21 @@ import { ProductsService } from '@services/products.service';
 export class HeaderComponent {
   private routerSubscription!: Subscription;
   productsService = inject(ProductsService);
-  showCartIcon = signal(false);
+  router = inject(Router);
   cartItems = computed(() => this.productsService.cart());
+  currentRoute = signal(this.router.url);
+  isMenuOpen = signal(false);
 
-  constructor(private router: Router) {}
+  constructor() {
+    effect(() => {
+      console.log(this.currentRoute());
+    });
+  }
 
   ngOnInit(): void {
     this.routerSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        if (this.router.url === '/' || this.router.url === '/cart') {
-          this.showCartIcon.set(true);
-        } else {
-          this.showCartIcon.set(false);
-        }
+        this.currentRoute.set(this.router.url);
       }
     });
   }
@@ -37,5 +39,9 @@ export class HeaderComponent {
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe();
     }
+  }
+
+  toggleMenu(): void {
+    this.isMenuOpen.update((value) => !value);
   }
 }
