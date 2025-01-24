@@ -21,11 +21,7 @@ export class HeaderComponent {
   currentRoute = signal(this.router.url);
   isMenuOpen = signal(false);
 
-  constructor() {
-    effect(() => {
-      console.log(this.currentRoute());
-    });
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.routerSubscription = this.router.events.subscribe((event) => {
