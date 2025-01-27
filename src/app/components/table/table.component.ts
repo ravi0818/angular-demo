@@ -5,7 +5,6 @@ import {
   input,
   TemplateRef,
   signal,
-  SimpleChanges,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';

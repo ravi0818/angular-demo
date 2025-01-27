@@ -1,6 +1,6 @@
 <div class="relative h-[100%]">
   <div
-    class="mat-elevation-z8 relative h-[calc(100%-3.6rem)] overflow-y-scroll border border-1"
+    class="mat-elevation-z8 relative h-[calc(100%-5.3rem)] sm:h-[calc(100%-3.6rem)] overflow-y-scroll border border-1"
   >
     <table mat-table [dataSource]="dataSource" class="relative" matSort>
       @for (column of displayedColumns; track $index) {
@@ -50,6 +50,7 @@
     }
   </div>
   <mat-paginator
+    id="paginator-ref"
     [pageSizeOptions]="[5, 10, 20]"
     showFirstLastButtons
     aria-label="Select page of periodic elements"

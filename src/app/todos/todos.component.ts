@@ -24,6 +24,11 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CustomDialogComponent } from '@components/custom-dialog/custom-dialog.component';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
+import {
+  BreakpointObserver,
+  BreakpointState,
+  LayoutModule,
+} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-todos',
@@ -38,12 +43,14 @@ import { MatCardModule } from '@angular/material/card';
     ReactiveFormsModule,
     CommonModule,
     MatCardModule,
+    LayoutModule,
   ],
   templateUrl: './todos.component.html',
   styleUrl: './todos.component.scss',
 })
 export class TodosComponent {
   todoService = inject(TodoService);
+  breakpointObserver = inject(BreakpointObserver);
   todos = computed(() => this.todoService.todos());
 
   readonly title = new FormControl('', [Validators.required]);
@@ -62,6 +69,20 @@ export class TodosComponent {
   dialog = inject(MatDialog);
 
   isEditingMode = signal(false);
+
+  isMobileView = signal(false);
+
+  ngOnInit() {
+    this.breakpointObserver
+      .observe(['(min-width: 640px)'])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this.isMobileView.set(false);
+        } else {
+          this.isMobileView.set(true);
+        }
+      });
+  }
 
   validateForm() {
     if (
@@ -120,8 +141,7 @@ export class TodosComponent {
         title: 'Add Todo',
         body: this.todoFormTemplate,
       },
-      height: '70%',
-      width: '30%',
+      width: this.isMobileView() ? '90%' : '30%',
     });
 
     this.dialogRef.afterClosed().subscribe(() => {
@@ -144,8 +164,7 @@ export class TodosComponent {
         body: this.todoFormTemplate,
         data: todo,
       },
-      height: '70%',
-      width: '30%',
+      width: this.isMobileView() ? '90%' : '30%',
     });
 
     this.dialogRef.afterClosed().subscribe(() => {
