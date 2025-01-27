@@ -26,6 +26,7 @@ export class HeaderComponent {
   ngOnInit(): void {
     this.routerSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
+        this.isMenuOpen.set(false);
         this.currentRoute.set(this.router.url);
       }
     });
